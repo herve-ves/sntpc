@@ -30,9 +30,7 @@ static void usage()
     exit(0);
 }
 
-static int timeout_ms = 1000;
-
-static void do_sntpc_by_server_name(const char *server)
+static void do_sntpc_by_server_name(const char *server, int timeout_ms)
 {
     struct sntpc_result result;
     int ret = sntpc_perform(server, timeout_ms, systime, &result);
@@ -44,7 +42,9 @@ static void do_sntpc_by_server_name(const char *server)
 
 int main(int argc, char **argv)
 {
+    int timeout_ms = 1000;
     char *servers = "pool.ntp.org";
+
     int c;
     while ((c = getopt(argc, argv, "ht:s:")) != -1) {
         switch (c) {
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
         } else if (*sub != '\0') {
             continue;
         }
-        do_sntpc_by_server_name(servers);
+        do_sntpc_by_server_name(servers, timeout_ms);
         servers = sub;
     }
     return 0;
