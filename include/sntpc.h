@@ -36,6 +36,9 @@ enum sntpc_err {
  */
 typedef double (*sntpc_systime_fn_t)(void);
 
+/**
+ * @brief   The definition of result of SNTPC request
+ */
 struct sntpc_result {
     double offset; // The calculated time offset (server's time minus client's time)
     double delay;  // The calculated round-trip delay
@@ -45,9 +48,9 @@ struct sntpc_result {
 /**
  * @brief   Send SNTP request by given socket FD and return result
  * @param[in]   fd                      [UDP socket FD]
- * @param[in]   timeout_ms              [Timeout MS of waiting server response] 
- * @param[in]   systime_fn              [Get system time function] 
- * @param[out]  result                  [Result] 
+ * @param[in]   timeout_ms              [Timeout MS of waiting server response]
+ * @param[in]   systime_fn              [Get system time function]
+ * @param[out]  result                  [Result]
  * @return      int                     [0: OK, negative: enum sntpc_err]
  */
 int sntpc_perform_by_fd(int fd, int timeout_ms, sntpc_systime_fn_t systime_fn, struct sntpc_result *result);
@@ -55,9 +58,9 @@ int sntpc_perform_by_fd(int fd, int timeout_ms, sntpc_systime_fn_t systime_fn, s
 /**
  * @brief   Send SNTP request by given server host-name and return result
  * @param[in]   server                  [SNTP server host-name]
- * @param[in]   timeout_ms              [Timeout MS of waiting server response] 
- * @param[in]   systime_fn              [Get system time function] 
- * @param[out]  result                  [Result] 
+ * @param[in]   timeout_ms              [Timeout MS of waiting server response]
+ * @param[in]   systime_fn              [Get system time function]
+ * @param[out]  result                  [Result]
  * @return      int                     [0: OK, negative: enum sntpc_err]
  */
 int sntpc_perform(const char *server, int timeout_ms, sntpc_systime_fn_t systime_fn, struct sntpc_result *result);
